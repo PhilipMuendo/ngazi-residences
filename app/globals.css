@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* Brand colours come from config/site.ts as --brand-* variables on <html>. */
+@theme inline {
+  --color-paper: var(--brand-paper, #e7e4de);
+  --color-graphite: var(--brand-graphite, #141516);
+  --color-stone: var(--brand-stone, #b9b4aa);
+  --color-mid: var(--brand-mid, #7e7a72);
+  --color-cobalt: var(--brand-accent, #2340e0);
+  --color-paper-2: #dedad2;
+  --color-ink-2: #2a2c2e;
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --ease-lift: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    --gutter: clamp(1rem, 2.4vw, 2.5rem);
+    --rail: 0px;
+  }
+  @media (min-width: 1024px) {
+    :root {
+      --rail: 5.5rem; /* the elevator panel */
+    }
+  }
+  html {
+    background: var(--color-paper);
+    color: var(--color-graphite);
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-stretch: 100%;
+    background: var(--color-paper);
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-cobalt);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Expanded light display: the architecture voice */
+  .h-hero {
+    font-stretch: 118%;
+    font-weight: 260;
+    font-size: clamp(3.1rem, 8.6vw, 10.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+  }
+  .h-xl {
+    font-stretch: 116%;
+    font-weight: 270;
+    font-size: clamp(2.6rem, 6.4vw, 8rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+  }
+  .h-lg {
+    font-stretch: 112%;
+    font-weight: 300;
+    font-size: clamp(2.1rem, 4.2vw, 5rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .h-md {
+    font-stretch: 108%;
+    font-weight: 380;
+    font-size: clamp(1.4rem, 2vw, 2.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  /* Condensed heavy numerals: the lift display */
+  .num {
+    font-stretch: 62%;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .data {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    line-height: 1.35;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .body {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .wrap {
+    padding-left: calc(var(--gutter) + var(--rail));
+    padding-right: var(--gutter);
+  }
+  /* drafting grid on concrete paper */
+  .sheet {
+    background-color: var(--color-paper);
+    background-image:
+      linear-gradient(to right, rgba(20, 21, 22, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(20, 21, 22, 0.045) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+  }
+  .hairline {
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* range inputs, drafted */
+input[type="range"].draft {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: transparent;
+}
+input[type="range"].draft::-webkit-slider-runnable-track {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+input[type="range"].draft::-moz-range-track {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+input[type="range"].draft::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: -9px;
+  border-radius: 0;
+  background: var(--color-cobalt);
+  border: 3px solid var(--color-paper);
+  box-shadow: 0 0 0 1px var(--color-cobalt);
+}
+input[type="range"].draft::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+  background: var(--color-cobalt);
+  border: 3px solid var(--color-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
